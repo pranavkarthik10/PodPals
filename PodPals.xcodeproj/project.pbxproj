@@ -11,6 +11,15 @@
 		C84B88592AF784620057160A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84B88582AF784620057160A /* ContentView.swift */; };
 		C84B885B2AF784630057160A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C84B885A2AF784630057160A /* Assets.xcassets */; };
 		C84B885E2AF784630057160A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C84B885D2AF784630057160A /* Preview Assets.xcassets */; };
+		C84B88672AF784AC0057160A /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84B88662AF784AC0057160A /* CoreMotion.framework */; };
+		C84B88692AF7856F0057160A /* HeadphoneMotionDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84B88682AF7856F0057160A /* HeadphoneMotionDetector.swift */; };
+		C84B886B2AF7857E0057160A /* Calibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84B886A2AF7857E0057160A /* Calibration.swift */; };
+		C84B886D2AF785C60057160A /* RotationViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84B886C2AF785C60057160A /* RotationViewer.swift */; };
+		C84B88702AF785E70057160A /* HeadScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84B886F2AF785E70057160A /* HeadScene.swift */; };
+		C84B88722AF786570057160A /* ConnectionCalibrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84B88712AF786570057160A /* ConnectionCalibrationView.swift */; };
+		C84B88752AF786A60057160A /* QuarternionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84B88742AF786A60057160A /* QuarternionExtension.swift */; };
+		C84B88772AF786BE0057160A /* AccelerationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84B88762AF786BE0057160A /* AccelerationExtension.swift */; };
+		C84B88792AF786CC0057160A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84B88782AF786CC0057160A /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +29,15 @@
 		C84B885A2AF784630057160A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C84B885D2AF784630057160A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C84B885F2AF784630057160A /* PodPals.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PodPals.entitlements; sourceTree = "<group>"; };
+		C84B88662AF784AC0057160A /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		C84B88682AF7856F0057160A /* HeadphoneMotionDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadphoneMotionDetector.swift; sourceTree = "<group>"; };
+		C84B886A2AF7857E0057160A /* Calibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calibration.swift; sourceTree = "<group>"; };
+		C84B886C2AF785C60057160A /* RotationViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationViewer.swift; sourceTree = "<group>"; };
+		C84B886F2AF785E70057160A /* HeadScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadScene.swift; sourceTree = "<group>"; };
+		C84B88712AF786570057160A /* ConnectionCalibrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionCalibrationView.swift; sourceTree = "<group>"; };
+		C84B88742AF786A60057160A /* QuarternionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuarternionExtension.swift; sourceTree = "<group>"; };
+		C84B88762AF786BE0057160A /* AccelerationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerationExtension.swift; sourceTree = "<group>"; };
+		C84B88782AF786CC0057160A /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C84B88672AF784AC0057160A /* CoreMotion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +57,7 @@
 			children = (
 				C84B88552AF784620057160A /* PodPals */,
 				C84B88542AF784620057160A /* Products */,
+				C84B88652AF784AC0057160A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -52,11 +72,17 @@
 		C84B88552AF784620057160A /* PodPals */ = {
 			isa = PBXGroup;
 			children = (
+				C84B88732AF786810057160A /* Utilities */,
 				C84B88562AF784620057160A /* PodPalsApp.swift */,
 				C84B88582AF784620057160A /* ContentView.swift */,
 				C84B885A2AF784630057160A /* Assets.xcassets */,
 				C84B885F2AF784630057160A /* PodPals.entitlements */,
 				C84B885C2AF784630057160A /* Preview Content */,
+				C84B88682AF7856F0057160A /* HeadphoneMotionDetector.swift */,
+				C84B886A2AF7857E0057160A /* Calibration.swift */,
+				C84B886C2AF785C60057160A /* RotationViewer.swift */,
+				C84B886F2AF785E70057160A /* HeadScene.swift */,
+				C84B88712AF786570057160A /* ConnectionCalibrationView.swift */,
 			);
 			path = PodPals;
 			sourceTree = "<group>";
@@ -67,6 +93,24 @@
 				C84B885D2AF784630057160A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		C84B88652AF784AC0057160A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C84B88662AF784AC0057160A /* CoreMotion.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C84B88732AF786810057160A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				C84B88742AF786A60057160A /* QuarternionExtension.swift */,
+				C84B88762AF786BE0057160A /* AccelerationExtension.swift */,
+				C84B88782AF786CC0057160A /* Utilities.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,7 +183,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C84B886B2AF7857E0057160A /* Calibration.swift in Sources */,
+				C84B88692AF7856F0057160A /* HeadphoneMotionDetector.swift in Sources */,
+				C84B88752AF786A60057160A /* QuarternionExtension.swift in Sources */,
+				C84B88772AF786BE0057160A /* AccelerationExtension.swift in Sources */,
+				C84B88722AF786570057160A /* ConnectionCalibrationView.swift in Sources */,
+				C84B886D2AF785C60057160A /* RotationViewer.swift in Sources */,
 				C84B88592AF784620057160A /* ContentView.swift in Sources */,
+				C84B88702AF785E70057160A /* HeadScene.swift in Sources */,
+				C84B88792AF786CC0057160A /* Utilities.swift in Sources */,
 				C84B88572AF784620057160A /* PodPalsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -270,6 +322,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = PodPals/PodPals.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -279,7 +332,9 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSAppleEventsUsageDescription = "We need this to control other apps";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMotionUsageDescription = "This app would like to access your Airpods motion data.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -297,6 +352,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = PodPals/PodPals.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -306,7 +362,9 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSAppleEventsUsageDescription = "We need this to control other apps";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMotionUsageDescription = "This app would like to access your Airpods motion data.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
