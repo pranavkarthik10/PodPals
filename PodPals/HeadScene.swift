@@ -62,7 +62,7 @@ class HeadScene: SCNScene, ObservableObject {
         let leftEarGeometry = SCNSphere(radius: 0.2)
         leftEar.geometry = leftEarGeometry
         leftEarGeometry.firstMaterial?.diffuse.contents = NSColor(
-            calibratedRed: 1, green: 0.5, blue: 0.4, alpha: 1
+            calibratedRed: 1, green: 1, blue: 1, alpha: 1
         )
         leftEar.position = SCNVector3(x: 1, y: 0.2, z: 0)
 
@@ -71,7 +71,7 @@ class HeadScene: SCNScene, ObservableObject {
         let rightEarGeometry = SCNSphere(radius: 0.2)
         rightEar.geometry = rightEarGeometry
         rightEarGeometry.firstMaterial?.diffuse.contents = NSColor(
-            calibratedRed: 0.3, green: 0.5, blue: 0.4, alpha: 1
+            calibratedRed: 1, green: 1, blue: 1, alpha: 1
         )
         rightEar.position = SCNVector3(x: -leftEar.position.x, y: leftEar.position.y, z: leftEar.position.z)
 
@@ -80,7 +80,7 @@ class HeadScene: SCNScene, ObservableObject {
         let noseGeometry = SCNSphere(radius: 0.1)
         nose.geometry = noseGeometry
         noseGeometry.firstMaterial?.diffuse.contents = NSColor(
-            calibratedRed: 0.3, green: 0.5, blue: 0.4, alpha: 1
+            calibratedRed: 0, green: 0, blue: 0, alpha: 1
         )
         nose.position = SCNVector3(x: 0, y: 0, z: -1)
 

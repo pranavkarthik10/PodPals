@@ -36,7 +36,7 @@ struct RotationViewerGroup: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            RotationViewer(scene: scene).frame(width: 180, height: 120)
+            RotationViewer(scene: scene)
                 .shadow(color: .black, radius: 20)
                 .onReceive(appState.$quaternion) {
                     quaternion in scene.setQuaternion(quaternion)

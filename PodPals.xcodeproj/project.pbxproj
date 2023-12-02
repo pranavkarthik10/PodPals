@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C847EDF52B13554400CCF404 /* AppMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C847EDF42B13554400CCF404 /* AppMenu.swift */; };
 		C84B88572AF784620057160A /* PodPalsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84B88562AF784620057160A /* PodPalsApp.swift */; };
 		C84B88592AF784620057160A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84B88582AF784620057160A /* ContentView.swift */; };
 		C84B885B2AF784630057160A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C84B885A2AF784630057160A /* Assets.xcassets */; };
@@ -20,9 +21,11 @@
 		C84B88752AF786A60057160A /* QuarternionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84B88742AF786A60057160A /* QuarternionExtension.swift */; };
 		C84B88772AF786BE0057160A /* AccelerationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84B88762AF786BE0057160A /* AccelerationExtension.swift */; };
 		C84B88792AF786CC0057160A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84B88782AF786CC0057160A /* Utilities.swift */; };
+		C86DC5FE2B02BB4500C33FA8 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86DC5FD2B02BB4500C33FA8 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C847EDF42B13554400CCF404 /* AppMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMenu.swift; sourceTree = "<group>"; };
 		C84B88532AF784620057160A /* PodPals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodPals.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C84B88562AF784620057160A /* PodPalsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodPalsApp.swift; sourceTree = "<group>"; };
 		C84B88582AF784620057160A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -38,6 +41,7 @@
 		C84B88742AF786A60057160A /* QuarternionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuarternionExtension.swift; sourceTree = "<group>"; };
 		C84B88762AF786BE0057160A /* AccelerationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerationExtension.swift; sourceTree = "<group>"; };
 		C84B88782AF786CC0057160A /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		C86DC5FD2B02BB4500C33FA8 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +87,8 @@
 				C84B886C2AF785C60057160A /* RotationViewer.swift */,
 				C84B886F2AF785E70057160A /* HeadScene.swift */,
 				C84B88712AF786570057160A /* ConnectionCalibrationView.swift */,
+				C86DC5FD2B02BB4500C33FA8 /* SettingsView.swift */,
+				C847EDF42B13554400CCF404 /* AppMenu.swift */,
 			);
 			path = PodPals;
 			sourceTree = "<group>";
@@ -189,10 +195,12 @@
 				C84B88772AF786BE0057160A /* AccelerationExtension.swift in Sources */,
 				C84B88722AF786570057160A /* ConnectionCalibrationView.swift in Sources */,
 				C84B886D2AF785C60057160A /* RotationViewer.swift in Sources */,
+				C847EDF52B13554400CCF404 /* AppMenu.swift in Sources */,
 				C84B88592AF784620057160A /* ContentView.swift in Sources */,
 				C84B88702AF785E70057160A /* HeadScene.swift in Sources */,
 				C84B88792AF786CC0057160A /* Utilities.swift in Sources */,
 				C84B88572AF784620057160A /* PodPalsApp.swift in Sources */,
+				C86DC5FE2B02BB4500C33FA8 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +340,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSAppleEventsUsageDescription = "We need this to control other apps";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMotionUsageDescription = "This app would like to access your Airpods motion data.";
@@ -362,6 +371,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSAppleEventsUsageDescription = "We need this to control other apps";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMotionUsageDescription = "This app would like to access your Airpods motion data.";

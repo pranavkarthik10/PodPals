@@ -17,12 +17,12 @@ struct ContentView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            HStack(spacing: 4) {
-                Text("PodPals")
-                    .font(.system(size: 30))
-                    .fontWeight(.light)
-                    .foregroundColor(.white)
-            }
+//            HStack(spacing: 4) {
+//                Text("PodPals")
+//                    .font(.system(size: 30))
+//                    .fontWeight(.light)
+//                    .foregroundColor(.white)
+//            }
 
             if !accessAuthorized {
                 AccessInfo().padding()

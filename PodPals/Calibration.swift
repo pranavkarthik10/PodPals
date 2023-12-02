@@ -32,7 +32,7 @@ class Calibration: ObservableObject {
     private var calibration: CMQuaternion = .init(x: 0, y: 0, z: 0, w: 1)
 
     init() {
-        restoreCalibration()
+//        restoreCalibration()
     }
 
     func update(data: CMDeviceMotion) {

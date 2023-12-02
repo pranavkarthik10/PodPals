@@ -15,18 +15,55 @@ struct PodPalsApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     @StateObject private var appState = AppState()
+    @State var enabled: Bool = true
+    
     
     var body: some Scene {
-        WindowGroup {
-            ContentView(appState: appState, accessAuthorized: $appState.accessAuthorized).fixedSize().preferredColorScheme(.dark)
-        }.windowResizability(.contentSize)
+//        WindowGroup {
+//
+//        }.windowResizability(.contentSize)
+        MenuBarExtra("PodPals", systemImage: "airpodspro.chargingcase.wireless.radiowaves.left.and.right.fill") {
+            AppMenu(appState: appState)
+//            Button(enabled ? "Enabled" : "Disabled") {
+//                                
+//                enabled.toggle()    
+//                    }
+//                    Divider()
+//                    Button("About PodPals") {
+//
+//
+//                        }
+//                    
+//                    Button("Preferences") {
+//
+//
+//                    }
+//                    Divider()
+//
+//                        Button("Quit PodPals") {
+//
+//                            NSApplication.shared.terminate(nil)
+//
+//                        }.keyboardShortcut("q")
+            
+            
+        }.menuBarExtraStyle(.window)
     }
+    
 }
 
 class AppState: ObservableObject {
     /** Corrected quaternion using calibration. */
     @Published var quaternion = CMQuaternion()
 
+    @Published var trackingEnabled = true
+    
+    @Published var sensitivity = "Low"
+    
+    @Published var leftFlick = "Previous Track"
+    @Published var rightFlick = "Next Track"
+    @Published var nod = "Play/Pause"
+    
     @AppStorage("AppState.calibration") private var calibration: Data = .init()
 
     private var accessCheckTimer = Timer()
@@ -61,6 +98,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_: Notification) {}
 
     func applicationShouldTerminateAfterLastWindowClosed(_: NSApplication) -> Bool {
-        return true
+        return false
     }
+    
 }

@@ -1,15 +1,13 @@
 import SwiftUI
 
 struct ConnectionView: View {
-    var appState: AppState
+    @ObservedObject var appState: AppState
 
     @State private var yawInDegrees = 0.0
     @State private var pitchInDegrees = 0.0
     @State private var rollInDegrees = 0.0
 
     
-    let threshold: Double = 10.0
-    let nodThreshold: Double = 4.0
     @State var previousYaw: Double = 0.0
     
     @State var previousPitch: Double = 0.0
@@ -88,7 +86,9 @@ struct ConnectionView: View {
         DispatchQueue.global(qos: .userInitiated).async {
             let script = """
         tell application "Spotify"
-            next track
+            if it is running then
+                next track
+            end if
         end tell
         """
             if let scriptObject = NSAppleScript(source: script) {
@@ -102,7 +102,9 @@ struct ConnectionView: View {
         DispatchQueue.global(qos: .userInitiated).async {
             let script = """
         tell application "Spotify"
-            previous track
+            if it is running then
+                previous track
+            end if
         end tell
         """
             if let scriptObject = NSAppleScript(source: script) {
@@ -141,17 +143,34 @@ struct ConnectionView: View {
         .onReceive(
             appState.$quaternion.throttle(for: 0.10, scheduler: RunLoop.main, latest: true)
         ) { newRotation in
-            let quaternion = newRotation.toAmbisonicCoordinateSystem()
-            let taitBryan = quaternion.toTaitBryan()
+            if appState.trackingEnabled {
+                let quaternion = newRotation.toAmbisonicCoordinateSystem()
+                let taitBryan = quaternion.toTaitBryan()
+                
+                yawInDegrees = rad2deg(taitBryan.yaw)
+                pitchInDegrees = rad2deg(taitBryan.pitch)
+                rollInDegrees = rad2deg(taitBryan.roll)
+                
+                let currentTime = Date().timeIntervalSince1970
+                
+                var threshold = 10.0
+                var nodThreshold = 4.0
+                
+                if appState.sensitivity == "Low" {
+                    threshold = 10.0
+                    nodThreshold = 4.0
+                } else if appState.sensitivity == "Medium" {
+                    threshold = 7.0
+                    nodThreshold = 3.0
+                } else {
+                    threshold = 4.0
+                    nodThreshold = 2.0
+                }
 
-            yawInDegrees = rad2deg(taitBryan.yaw)
-            pitchInDegrees = rad2deg(taitBryan.pitch)
-            rollInDegrees = rad2deg(taitBryan.roll)
-            
-            let currentTime = Date().timeIntervalSince1970
-            
-            recognizeFlick(yaw: yawInDegrees, threshold: threshold, currentTime: currentTime)
-            recognizeNod(pitch: pitchInDegrees, threshold: nodThreshold, currentTime: currentTime)
+                
+                recognizeFlick(yaw: yawInDegrees, threshold: threshold, currentTime: currentTime)
+                recognizeNod(pitch: pitchInDegrees, threshold: nodThreshold, currentTime: currentTime)
+            }
         }
     }
     
