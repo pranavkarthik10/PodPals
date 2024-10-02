@@ -10,6 +10,7 @@ import SwiftUI
 struct AppMenu: View {
     @ObservedObject var appState: AppState
     @State private var connected = true
+    @Environment(\.openWindow) var openWindow
     
     var options = ["Low", "Medium", "High"]
     var gestureOptions = ["Previous Track", "Next Track", "Play/Pause", "Disabled"]
@@ -20,6 +21,12 @@ struct AppMenu: View {
                 Image("podpals").resizable().frame(width:40, height: 40).cornerRadius(12).padding(15)
                 Text("PodPals").bold()
                 Spacer()
+                Button("Settings") {
+                    NSApplication.shared.activate(ignoringOtherApps: true)
+                    openWindow(id: "settings-window")
+                    
+                }.padding(15)
+
             }
             
             HStack {

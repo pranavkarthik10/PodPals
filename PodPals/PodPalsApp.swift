@@ -48,6 +48,9 @@ struct PodPalsApp: App {
             
             
         }.menuBarExtraStyle(.window)
+        Window("Settings", id: "settings-window") {
+            ContentView(appState: appState, accessAuthorized: $appState.accessAuthorized).fixedSize().preferredColorScheme(.dark)
+        }.windowResizability(.contentSize)
     }
     
 }

@@ -54,7 +54,7 @@ struct ConnectionView: View {
                     playPauseSpotify()
                 } else {
                     lastGestureActivationTime = currentTime
-                    print("Up Nod Detected")
+//                    print("Up Nod Detected")
                 }
             }
         }
