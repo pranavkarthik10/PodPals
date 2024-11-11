@@ -22,6 +22,7 @@ struct PodPalsApp: App {
 //        WindowGroup {
 //
 //        }.windowResizability(.contentSize)
+//        MenuBarExtra("PodPals", systemImage: "airpods.chargingcase.wireless.fill") {
         MenuBarExtra("PodPals", systemImage: "airpodspro.chargingcase.wireless.radiowaves.left.and.right.fill") {
             AppMenu(appState: appState)
 //            Button(enabled ? "Enabled" : "Disabled") {
