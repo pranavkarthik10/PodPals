@@ -184,7 +184,9 @@ struct ConnectionCalibrationView: View {
             ConnectionView(appState: appState)
 
             Button(action: {
+                appState.trackingEnabled.toggle()
                 appState.headphoneMotionDetector.calibration.resetOrientation()
+                appState.trackingEnabled.toggle()
             }) {
                 Text("Reset Orientation")
             }
@@ -224,3 +226,4 @@ struct PressedReleaseButton: View {
                 })
     }
 }
+

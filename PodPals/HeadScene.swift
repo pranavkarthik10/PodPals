@@ -85,33 +85,18 @@ class HeadScene: SCNScene, ObservableObject {
         )
         nose.position = SCNVector3(x: 0, y: 0, z: -1)
 
-        // mouth (smile)
+        // mouth
         let mouth = SCNNode()
-        let mouthGeometry = SCNTorus(ringRadius: 0.3, pipeRadius: 0.05)
+        let mouthGeometry = SCNCylinder(radius: 0.2, height: 0.05)
         mouth.geometry = mouthGeometry
-
-        // Set black color for the mouth
+//        mouthGeometry.firstMaterial?.diffuse.contents = NSColor(
+//            calibratedRed: 0.8, green: 0.2, blue: 0.2, alpha: 1
+//        )
         mouthGeometry.firstMaterial?.diffuse.contents = NSColor(
             calibratedRed: 0, green: 0, blue: 0, alpha: 1
         )
-
-        // Create a box to use as a mask to show only the upper half of the torus
-        let maskNode = SCNNode()
-        let maskGeometry = SCNBox(width: 1.0, height: 0.5, length: 0.4, chamferRadius: 0)
-        maskNode.geometry = maskGeometry
-        maskNode.position = SCNVector3(x: 0, y: -0.3, z: 0)
-
-        // Set up mask material
-        maskGeometry.firstMaterial?.diffuse.contents = NSColor.white
-        maskGeometry.firstMaterial?.transparency = 0.0
-
-        // Add the mask as a child of the mouth
-        mouth.addChildNode(maskNode)
-
-        // Position the entire mouth assembly
+        mouth.scale.z = 0.2
         mouth.position = SCNVector3(x: 0, y: -0.5, z: -1)
-        // Rotate the mouth to create a smile orientation
-        mouth.rotation = SCNVector4(0, 0, 0, Float.pi)
 
         // add together
 

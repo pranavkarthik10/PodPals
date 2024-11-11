@@ -21,7 +21,7 @@ struct AppMenu: View {
                 Image("podpals").resizable().frame(width:40, height: 40).cornerRadius(12).padding(15)
                 Text("PodPals").bold()
                 Spacer()
-                Button("Settings") {
+                Button("Calibrate") {
                     NSApplication.shared.activate(ignoringOtherApps: true)
                     openWindow(id: "settings-window")
                     
