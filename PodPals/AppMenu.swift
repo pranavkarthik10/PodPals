@@ -25,7 +25,7 @@ struct AppMenu: View {
                     NSApplication.shared.activate(ignoringOtherApps: true)
                     openWindow(id: "settings-window")
                     
-                }.padding(15)
+                }.padding(15).foregroundStyle(.primary)
 
             }
             

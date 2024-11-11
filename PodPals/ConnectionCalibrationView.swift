@@ -1,5 +1,87 @@
 import SwiftUI
 
+enum GestureAction: String, CaseIterable {
+    case playPause = "Play/Pause"
+    case nextTrack = "Next Track"
+    case previousTrack = "Previous Track"
+    case volumeUp = "Volume Up"
+    case volumeDown = "Volume Down"
+    
+    func execute() {
+        switch self {
+        case .playPause:
+            SpotifyController.shared.playPause()
+        case .nextTrack:
+            SpotifyController.shared.nextTrack()
+        case .previousTrack:
+            SpotifyController.shared.previousTrack()
+        case .volumeUp:
+            SpotifyController.shared.adjustVolume(up: true)
+        case .volumeDown:
+            SpotifyController.shared.adjustVolume(up: false)
+        }
+    }
+}
+
+class SpotifyController {
+    static let shared = SpotifyController()
+    
+    func playPause() {
+        executeAppleScript("""
+            tell application "Spotify"
+                if it is running then
+                    if player state is playing then
+                        pause
+                    else
+                        play
+                    end if
+                end if
+            end tell
+            """)
+    }
+    
+    func nextTrack() {
+        executeAppleScript("""
+            tell application "Spotify"
+                if it is running then
+                    next track
+                end if
+            end tell
+            """)
+    }
+    
+    func previousTrack() {
+        executeAppleScript("""
+            tell application "Spotify"
+                if it is running then
+                    previous track
+                end if
+            end tell
+            """)
+    }
+    
+    func adjustVolume(up: Bool) {
+        let adjustment = up ? "set sound volume to (sound volume + 10)" : "set sound volume to (sound volume - 10)"
+        executeAppleScript("""
+            tell application "Spotify"
+                if it is running then
+                    \(adjustment)
+                end if
+            end tell
+            """)
+    }
+    
+    private func executeAppleScript(_ script: String) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let scriptObject = NSAppleScript(source: script) {
+                var error: NSDictionary?
+                scriptObject.executeAndReturnError(&error)
+            }
+        }
+    }
+}
+
+
 struct ConnectionView: View {
     @ObservedObject var appState: AppState
 
@@ -17,104 +99,50 @@ struct ConnectionView: View {
     let debounceTime: TimeInterval = 1.0
 
     @State var lastGestureActivationTime: TimeInterval = 0
+    @State private var connected = true
     
     func recognizeFlick(yaw: Double, threshold: Double, currentTime: TimeInterval) {
-        let filteredYaw = alpha * yaw + (1 - alpha) * previousYaw
-        let yawChange = filteredYaw - previousYaw
-        previousYaw = filteredYaw
-        
-        if abs(yawChange) > threshold {
-            // Check if enough time has passed since the last activation
-            if currentTime - lastGestureActivationTime >= debounceTime {
-                if yawChange > 0 {
-                    lastGestureActivationTime = currentTime
-                    print("Left Flick Detected")
-                    prevTrackSpotify()
-                } else {
-                    lastGestureActivationTime = currentTime
-                    print("Right Flick Detected")
-                    nextTrackSpotify()
+            let filteredYaw = alpha * yaw + (1 - alpha) * previousYaw
+            let yawChange = filteredYaw - previousYaw
+            previousYaw = filteredYaw
+            
+            if abs(yawChange) > threshold {
+                if currentTime - lastGestureActivationTime >= debounceTime {
+                    if yawChange > 0 {
+                        lastGestureActivationTime = currentTime
+                        print("Left Flick Detected")
+                        if let action = GestureAction(rawValue: appState.leftFlick) {
+                            action.execute()
+                        }
+                    } else {
+                        lastGestureActivationTime = currentTime
+                        print("Right Flick Detected")
+                        if let action = GestureAction(rawValue: appState.rightFlick) {
+                            action.execute()
+                        }
+                    }
                 }
             }
         }
-        
-    }
     
     func recognizeNod(pitch: Double, threshold: Double, currentTime: TimeInterval) {
-        let filteredPitch = alpha * pitch + (1 - alpha) * previousPitch
-        let pitchChange = filteredPitch - previousPitch
-        previousPitch = filteredPitch
-        
-        if abs(pitchChange) > threshold {
-            // Check if enough time has passed since the last activation
-            if currentTime - lastGestureActivationTime >= debounceTime {
-                if pitchChange > 0 {
-                    lastGestureActivationTime = currentTime
-                    print("Down Nod Detected")
-                    playPauseSpotify()
-                } else {
-                    lastGestureActivationTime = currentTime
-//                    print("Up Nod Detected")
+            let filteredPitch = alpha * pitch + (1 - alpha) * previousPitch
+            let pitchChange = filteredPitch - previousPitch
+            previousPitch = filteredPitch
+            
+            if abs(pitchChange) > threshold {
+                if currentTime - lastGestureActivationTime >= debounceTime {
+                    if pitchChange > 0 {
+                        lastGestureActivationTime = currentTime
+                        print("Down Nod Detected")
+                        if let action = GestureAction(rawValue: appState.nod) {
+                            action.execute()
+                        }
+                    }
                 }
             }
         }
-        
-    }
     
-    func playPauseSpotify() {
-        DispatchQueue.global(qos: .userInitiated).async {
-            let script = """
-        tell application "Spotify"
-            if it is running then
-                if player state is playing then
-                    pause
-                else
-                    play
-                end if
-            end if
-        end tell
-        """
-            if let scriptObject = NSAppleScript(source: script) {
-                var error: NSDictionary?
-                scriptObject.executeAndReturnError(&error)
-            }
-        }
-    }
-
-    // Function to skip to the next track in Spotify
-    func nextTrackSpotify() {
-        DispatchQueue.global(qos: .userInitiated).async {
-            let script = """
-        tell application "Spotify"
-            if it is running then
-                next track
-            end if
-        end tell
-        """
-            if let scriptObject = NSAppleScript(source: script) {
-                var error: NSDictionary?
-                scriptObject.executeAndReturnError(&error)
-            }
-        }
-    }
-
-    func prevTrackSpotify() {
-        DispatchQueue.global(qos: .userInitiated).async {
-            let script = """
-        tell application "Spotify"
-            if it is running then
-                previous track
-            end if
-        end tell
-        """
-            if let scriptObject = NSAppleScript(source: script) {
-                var error: NSDictionary?
-                scriptObject.executeAndReturnError(&error)
-            }
-        }
-    }
-    
-    @State private var connected = true
     var body: some View {
         VStack {
             Text(connected ? "Connected" : "Not Connected")
