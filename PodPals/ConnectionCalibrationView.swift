@@ -11,14 +11,19 @@ enum GestureAction: String, CaseIterable {
         switch self {
         case .playPause:
             SpotifyController.shared.playPause()
+            MusicController.shared.playPause()
         case .nextTrack:
             SpotifyController.shared.nextTrack()
+            MusicController.shared.nextTrack()
         case .previousTrack:
             SpotifyController.shared.previousTrack()
+            MusicController.shared.previousTrack()
         case .volumeUp:
             SpotifyController.shared.adjustVolume(up: true)
+            MusicController.shared.adjustVolume(up: true)
         case .volumeDown:
             SpotifyController.shared.adjustVolume(up: false)
+            MusicController.shared.adjustVolume(up: false)
         }
     }
 }
@@ -64,6 +69,64 @@ class SpotifyController {
         let adjustment = up ? "set sound volume to (sound volume + 10)" : "set sound volume to (sound volume - 10)"
         executeAppleScript("""
             tell application "Spotify"
+                if it is running then
+                    \(adjustment)
+                end if
+            end tell
+            """)
+    }
+    
+    private func executeAppleScript(_ script: String) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let scriptObject = NSAppleScript(source: script) {
+                var error: NSDictionary?
+                scriptObject.executeAndReturnError(&error)
+            }
+        }
+    }
+}
+
+class MusicController {
+    static let shared = MusicController()
+    
+    func playPause() {
+        executeAppleScript("""
+            tell application "Music"
+                if it is running then
+                    if player state is playing then
+                        pause
+                    else
+                        play
+                    end if
+                end if
+            end tell
+            """)
+    }
+    
+    func nextTrack() {
+        executeAppleScript("""
+            tell application "Music"
+                if it is running then
+                    next track
+                end if
+            end tell
+            """)
+    }
+    
+    func previousTrack() {
+        executeAppleScript("""
+            tell application "Music"
+                if it is running then
+                    previous track
+                end if
+            end tell
+            """)
+    }
+    
+    func adjustVolume(up: Bool) {
+        let adjustment = up ? "set sound volume to (sound volume + 10)" : "set sound volume to (sound volume - 10)"
+        executeAppleScript("""
+            tell application "Music"
                 if it is running then
                     \(adjustment)
                 end if
