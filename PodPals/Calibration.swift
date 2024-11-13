@@ -26,13 +26,13 @@ class Calibration: ObservableObject {
 
     private var data: CMDeviceMotion = .init()
 
-    // calibration
+
     private var idleGravity: CMAcceleration = .init()
     private var idleQuaternion: CMQuaternion = .init(x: 0, y: 0, z: 0, w: 1)
     private var calibration: CMQuaternion = .init(x: 0, y: 0, z: 0, w: 1)
 
     init() {
-//        restoreCalibration()
+        restoreCalibration()
     }
 
     func update(data: CMDeviceMotion) {

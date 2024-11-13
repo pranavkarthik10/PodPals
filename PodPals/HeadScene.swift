@@ -35,7 +35,7 @@ class HeadScene: SCNScene, ObservableObject {
         let head = SCNNode()
         let headGeometry = SCNSphere(radius: 1)
         head.geometry = headGeometry
-//        headGeometry.firstMaterial?.diffuse.contents = NSColor(red: 156/255, green: 156/255, blue: 156/255, alpha: 1.0)
+
         headGeometry.firstMaterial?.diffuse.contents = NSColor(red: 1, green: 1, blue: 1, alpha: 1.0)
         headGeometry.firstMaterial?.transparency = 0.8
         head.position = SCNVector3(x: 0, y: 0, z: 0)
@@ -89,9 +89,7 @@ class HeadScene: SCNScene, ObservableObject {
         let mouth = SCNNode()
         let mouthGeometry = SCNCylinder(radius: 0.2, height: 0.05)
         mouth.geometry = mouthGeometry
-//        mouthGeometry.firstMaterial?.diffuse.contents = NSColor(
-//            calibratedRed: 0.8, green: 0.2, blue: 0.2, alpha: 1
-//        )
+
         mouthGeometry.firstMaterial?.diffuse.contents = NSColor(
             calibratedRed: 0, green: 0, blue: 0, alpha: 1
         )
@@ -147,11 +145,7 @@ class HeadScene: SCNScene, ObservableObject {
         ringGeometry3.firstMaterial?.emission.contents = NSColor(.white)
         ring3.rotation = SCNVector4(x: 1, y: 0, z: 0, w: 3.14 / 2)
 
-//        headGroup.addChildNode(ring)
-//        headGroup.addChildNode(ring2)
-//        headGroup.addChildNode(ring3)
 
-        // add the light node to the scene
         rootNode.addChildNode(lightNode)
         rootNode.addChildNode(lightNode2)
         headGroup.addChildNode(head)
@@ -162,19 +156,19 @@ class HeadScene: SCNScene, ObservableObject {
         headGroup.addChildNode(nose)
         headGroup.addChildNode(mouth)
 
-        // mirror
+
         mirror.addChildNode(headGroup)
 
-        // set up scene
+
         rootNode.addChildNode(mirror)
 
-        // set up camera
+
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
         cameraNode.position = SCNVector3(x: 0, y: 0, z: 3)
         rootNode.addChildNode(cameraNode)
 
-        // Set camera to look at the origin
+
         let constraint = SCNLookAtConstraint(target: rootNode)
         cameraNode.constraints = [constraint]
 

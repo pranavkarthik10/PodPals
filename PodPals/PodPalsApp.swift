@@ -97,21 +97,19 @@ class AppState: ObservableObject {
     var headphoneMotionDetector = HeadphoneMotionDetector()
     
     init() {
-        // Initialize with stored values or defaults
         self.sensitivity = UserDefaults.standard.string(forKey: "sensitivity") ?? "Low"
         self.leftFlick = UserDefaults.standard.string(forKey: "leftFlick") ?? "Previous Track"
         self.rightFlick = UserDefaults.standard.string(forKey: "rightFlick") ?? "Next Track"
         self.nod = UserDefaults.standard.string(forKey: "nod") ?? "Play/Pause"
         self.trackingEnabled = UserDefaults.standard.bool(forKey: "trackingEnabled")
         self.mediaPlayerAvailability = MediaPlayerChecker.checkAvailability()
-        // Set up motion detector
+
         headphoneMotionDetector.onUpdate = { [self] in
             quaternion = self.headphoneMotionDetector.correctedQuaternion
         }
         
         headphoneMotionDetector.start()
         
-        // repeatedly check if access has been granted by the user
         if !HeadphoneMotionDetector.isAuthorized() {
             if HeadphoneMotionDetector.authorizationStatus == CMAuthorizationStatus.notDetermined {
                 accessCheckTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in

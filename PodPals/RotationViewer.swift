@@ -13,7 +13,7 @@ struct RotationViewer: NSViewRepresentable {
     var scene: HeadScene
 
     func makeNSView(context _: Context) -> SCNView {
-        // set up scene
+        
         let sceneView = SCNView()
 
         sceneView.scene = scene
