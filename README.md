@@ -19,7 +19,7 @@ Control your music using airpods gestures.
 
 > Requirements: macOS 14.5 or later
 
-1. Download the [`PodPals.zip`]() from the [Releases](https://github.com/pranavkarthik10/PodPals/releases/latest) page.
+1. Download the [`PodPals.zip`](https://github.com/pranavkarthik10/PodPals/releases/download/v1.0/PodPals.zip) from the [Releases](https://github.com/pranavkarthik10/PodPals/releases/latest) page.
 2. Unzip and drag the `PodPals.app` to your **Applications** folder.
 3. Launch **PodPals** from your Applications folder or Spotlight.
 
