@@ -19,20 +19,6 @@ struct PodPalsApp: App {
     
     init () {
         UserDefaults.registerDefaults()
-        
-        let availability = MediaPlayerChecker.checkAvailability()
-            if availability == .neither {
-                    DispatchQueue.main.async {
-                        let alert = NSAlert()
-                        alert.messageText = "No Media Player Available"
-                        alert.informativeText = "PodPals requires either Spotify or Apple Music to be installed and running. Please launch one of these applications to use PodPals."
-                        alert.alertStyle = .critical
-                        alert.addButton(withTitle: "Quit")
-                        
-                        alert.runModal()
-                        NSApplication.shared.terminate(nil)
-            }
-        }
     }
     
     var body: some Scene {
@@ -104,6 +90,17 @@ class AppState: ObservableObject {
         self.trackingEnabled = UserDefaults.standard.bool(forKey: "trackingEnabled")
         self.mediaPlayerAvailability = MediaPlayerChecker.checkAvailability()
 
+        Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
+                    let availability = MediaPlayerChecker.checkAvailability()
+                    DispatchQueue.main.async {
+                        self?.mediaPlayerAvailability = availability
+                        
+                        if availability == .neither {
+                            self?.showNoMediaPlayerAlert()
+                        }
+                    }
+                }
+        
         headphoneMotionDetector.onUpdate = { [self] in
             quaternion = self.headphoneMotionDetector.correctedQuaternion
         }
@@ -121,7 +118,16 @@ class AppState: ObservableObject {
             }
         }
     }
-    
+    private func showNoMediaPlayerAlert() {
+            let alert = NSAlert()
+            alert.messageText = "No Media Player Available"
+            alert.informativeText = "PodPals requires either Spotify or Apple Music to be installed and running. Please launch one of these applications to use PodPals."
+            alert.alertStyle = .critical
+            alert.addButton(withTitle: "Quit")
+            
+            alert.runModal()
+            NSApplication.shared.terminate(nil)
+        }
 }
 
 extension UserDefaults {
