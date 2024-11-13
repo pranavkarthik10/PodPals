@@ -19,6 +19,20 @@ struct PodPalsApp: App {
     
     init () {
         UserDefaults.registerDefaults()
+        
+        let availability = MediaPlayerChecker.checkAvailability()
+            if availability == .neither {
+                    DispatchQueue.main.async {
+                        let alert = NSAlert()
+                        alert.messageText = "No Media Player Available"
+                        alert.informativeText = "PodPals requires either Spotify or Apple Music to be installed and running. Please launch one of these applications to use PodPals."
+                        alert.alertStyle = .critical
+                        alert.addButton(withTitle: "Quit")
+                        
+                        alert.runModal()
+                        NSApplication.shared.terminate(nil)
+            }
+        }
     }
     
     var body: some Scene {
@@ -68,6 +82,13 @@ class AppState: ObservableObject {
         }
     }
     
+    @Published var mediaPlayerAvailability: MediaPlayerAvailability {
+           willSet {
+               UserDefaults.standard.set(newValue == .both || newValue == .spotifyOnly, forKey: "spotifyAvailable")
+               UserDefaults.standard.set(newValue == .both || newValue == .appleMusicOnly, forKey: "appleMusicAvailable")
+           }
+       }
+    
     @AppStorage("AppState.calibration") private var calibration: Data = .init()
     
     private var accessCheckTimer = Timer()
@@ -82,7 +103,7 @@ class AppState: ObservableObject {
         self.rightFlick = UserDefaults.standard.string(forKey: "rightFlick") ?? "Next Track"
         self.nod = UserDefaults.standard.string(forKey: "nod") ?? "Play/Pause"
         self.trackingEnabled = UserDefaults.standard.bool(forKey: "trackingEnabled")
-        
+        self.mediaPlayerAvailability = MediaPlayerChecker.checkAvailability()
         // Set up motion detector
         headphoneMotionDetector.onUpdate = { [self] in
             quaternion = self.headphoneMotionDetector.correctedQuaternion
@@ -102,6 +123,7 @@ class AppState: ObservableObject {
             }
         }
     }
+    
 }
 
 extension UserDefaults {
@@ -137,4 +159,59 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return false
     }
     
+}
+
+enum MediaPlayerAvailability {
+    case spotifyOnly
+    case appleMusicOnly
+    case both
+    case neither
+}
+
+class MediaPlayerChecker {
+    static func checkAvailability() -> MediaPlayerAvailability {
+        let spotifyAvailable = checkSpotify()
+        let appleMusicAvailable = checkAppleMusic()
+        
+        switch (spotifyAvailable, appleMusicAvailable) {
+        case (true, true):
+            return .both
+        case (true, false):
+            return .spotifyOnly
+        case (false, true):
+            return .appleMusicOnly
+        case (false, false):
+            return .neither
+        }
+    }
+    
+    private static func checkSpotify() -> Bool {
+        let script = """
+        tell application "System Events"
+            return exists application process "Spotify"
+        end tell
+        """
+        
+        if let scriptObject = NSAppleScript(source: script) {
+            var error: NSDictionary?
+            let result = scriptObject.executeAndReturnError(&error)
+            return result.booleanValue
+        }
+        return false
+    }
+    
+    private static func checkAppleMusic() -> Bool {
+        let script = """
+        tell application "System Events"
+            return exists application process "Music"
+        end tell
+        """
+        
+        if let scriptObject = NSAppleScript(source: script) {
+            var error: NSDictionary?
+            let result = scriptObject.executeAndReturnError(&error)
+            return result.booleanValue
+        }
+        return false
+    }
 }

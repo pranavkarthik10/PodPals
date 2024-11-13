@@ -8,26 +8,51 @@ enum GestureAction: String, CaseIterable {
     case volumeDown = "Volume Down"
     
     func execute() {
+        let availability = MediaPlayerChecker.checkAvailability()
+        
         switch self {
         case .playPause:
-            SpotifyController.shared.playPause()
-            MusicController.shared.playPause()
+            if availability == .spotifyOnly || availability == .both {
+                SpotifyController.shared.playPause()
+            }
+            if availability == .appleMusicOnly || availability == .both {
+                MusicController.shared.playPause()
+            }
+            
         case .nextTrack:
-            SpotifyController.shared.nextTrack()
-            MusicController.shared.nextTrack()
+            if availability == .spotifyOnly || availability == .both {
+                SpotifyController.shared.nextTrack()
+            }
+            if availability == .appleMusicOnly || availability == .both {
+                MusicController.shared.nextTrack()
+            }
+            
         case .previousTrack:
-            SpotifyController.shared.previousTrack()
-            MusicController.shared.previousTrack()
+            if availability == .spotifyOnly || availability == .both {
+                SpotifyController.shared.previousTrack()
+            }
+            if availability == .appleMusicOnly || availability == .both {
+                MusicController.shared.previousTrack()
+            }
+            
         case .volumeUp:
-            SpotifyController.shared.adjustVolume(up: true)
-            MusicController.shared.adjustVolume(up: true)
+            if availability == .spotifyOnly || availability == .both {
+                SpotifyController.shared.adjustVolume(up: true)
+            }
+            if availability == .appleMusicOnly || availability == .both {
+                MusicController.shared.adjustVolume(up: true)
+            }
+            
         case .volumeDown:
-            SpotifyController.shared.adjustVolume(up: false)
-            MusicController.shared.adjustVolume(up: false)
+            if availability == .spotifyOnly || availability == .both {
+                SpotifyController.shared.adjustVolume(up: false)
+            }
+            if availability == .appleMusicOnly || availability == .both {
+                MusicController.shared.adjustVolume(up: false)
+            }
         }
     }
 }
-
 class SpotifyController {
     static let shared = SpotifyController()
     
